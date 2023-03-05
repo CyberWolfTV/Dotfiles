@@ -122,6 +122,14 @@ echo ' '
 
 
 #####################################################################
+## History Size #####################################################
+#####################################################################
+HISTFILE=~/.zsh_history
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
+
+
+#####################################################################
 ### Variables #######################################################
 #####################################################################
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
@@ -176,11 +184,15 @@ alias mplayer="mplayer -vo null"
 ### Debian (-based distros) #########################################
 #####################################################################
 update(){
-        sudo apt update | lolcat
-        sudo apt full-upgrade | lolcat
-        sudo apt autoremove | lolcat
-        sudo apt autoclean | lolcat
+        sudo apt-get update | lolcat
+        sudo apt-get full-upgrade | lolcat
+        sudo apt-get autoremove | lolcat
+        sudo apt-get autoclean | lolcat
+        sudo flatpak update
 }
+
+alias install="sudo apt-get install"
+alias remove="sudo apt-get remove"
 
 
 #####################################################################
@@ -203,16 +215,6 @@ catpro() {
 
 
 #####################################################################
-### Scripts #########################################################
-#####################################################################
-alias dismod="python3 ~/Programming/2_Automation_and_Dotfiles/Uni/dismod"
-alias linadi="python3 ~/Programming/2_Automation_and_Dotfiles/Uni/linadi"
-alias epr="python3 ~/Programming/2_Automation_and_Dotfiles/Uni/epr"
-alias gpr="python3 ~/Programming/2_Automation_and_Dotfiles/Uni/gpr"
-alias topdf="~/Programming/2_Automation_and_Dotfiles/Uni/topdf"
-
-
-#####################################################################
 ### Ramdisks ########################################################
 #####################################################################
 # $1 G big ramdisk in specified directory
@@ -229,6 +231,13 @@ alias refresh-clipboard="sudo umount ~/Clipboard && sudo mount -t tmpfs -o size=
 #####################################################################
 ### Very Specific Stuff #############################################
 #####################################################################
+# get a simple python server running in this directory on 
+# a specified port
+server(){
+    # $1 = port (e.g. 8080)
+    sudo python3 -m http.server $1
+}
+
 # for tabgroups addon in firefox
 clean() {
 	cd ~/Downloads/STG-backups-FF-*
